@@ -1,0 +1,27 @@
+{
+    "env": {
+      "browser": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/recommended",
+      "plugin:react/recommended",
+      "plugin:react-hooks/recommended",
+      "plugin:react/jsx-runtime", // If you are using the new JSX transform from React 17, extend react/jsx-runtime in your eslint config, Make sure it is added after plugin:react/recommended in the extends array.
+      "plugin:jsx-a11y/recommended",
+      "plugin:prettier/recommended" // Add plugin:prettier/recommended as the last extension
+    ],
+    "overrides": [],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": "latest",
+      "sourceType": "module",
+      "ecmaFeatures": {
+        "jsx": true
+      }
+    },
+    "plugins": ["@typescript-eslint"],
+    "rules": {}
+  }
+  
