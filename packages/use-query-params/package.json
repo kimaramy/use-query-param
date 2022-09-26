@@ -1,7 +1,7 @@
 {
   "name": "use-query-params",
   "description": "React hooks for using URL query params as state. No dependencies.",
-  "version": "0.0.0",
+  "version": "1.0.0-alpha.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
