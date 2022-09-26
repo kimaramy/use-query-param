@@ -1,8 +1,5 @@
 import React from 'react';
-import {
-  useQueryParams,
-  useQueryParam,
-} from '@_kimaramy_/use-query-params/src';
+import { useQueryParams, useQueryParam } from '@kimaramyz/use-query-params';
 import './App.css';
 
 const App: React.FC = () => {
@@ -18,9 +15,6 @@ const App: React.FC = () => {
 
   return (
     <div className="App">
-      <h1>Hello CodeSandbox</h1>
-      <h2>Start editing to see some magic happen!</h2>
-
       <dl>
         <dt>query params</dt>
         <dd>
