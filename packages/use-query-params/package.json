@@ -1,5 +1,5 @@
 {
-  "name": "use-query-params",
+  "name": "@_kimaramy_/use-query-params",
   "description": "React hooks for using URL query params as state. No dependencies.",
   "private": false,
   "license": "MIT",
@@ -8,7 +8,7 @@
     "email": "fed.haram@gmail.com",
     "url": "https://github.com/kimaramy"
   },
-  "version": "0.1.0",
+  "version": "0.1.1",
   "keywords": [
     "react",
     "hooks",
@@ -29,10 +29,12 @@
   "exports": {
     ".": {
       "import": "./dist/use-query-params.js",
-      "require": "./dist/use-query-params.umd.cjs",
-      "types": "./dist/index.d.ts"
+      "require": "./dist/use-query-params.umd.cjs"
     }
   },
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=12"
   },
