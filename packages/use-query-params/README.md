@@ -32,7 +32,7 @@ If you are doing a React-based project, you will probably be using `ReactRouter`
 
   - No serializer library dependent
   - No router library dependent
-  - Perfectly compatible with any version of React Router
+  - Perfectly compatible with any version of `ReactRouter`
 
 ## API
 
@@ -107,7 +107,7 @@ declare function useQueryParam<T = string>(
 
 ```jsx
 import { FC } from 'react';
-import { useQueryParams, useQueryParam } from '@kimaramyz/use-query-params';
+import { useQueryParam } from '@kimaramyz/use-query-params';
 
 const UseQueryParamExample: FC = () => {
   const [pageParam, setPageParam] = useQueryParam('page', (value) =>
