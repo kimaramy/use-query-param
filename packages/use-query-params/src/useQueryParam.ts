@@ -1,27 +1,18 @@
 import useQueryParams from './useQueryParams';
-import { defaultRoutingOptions } from './constants';
+import { defaultOptions } from './utils';
+import type { Nullable, UseQueryParamsOptions } from './utils';
 
-const useQueryParam = <T = string>(
+function useQueryParam<T = string>(
   key: string,
-  formatValue?: (value: string) => T,
-  options?: {
-    isShallow?: boolean;
-  }
-): [T, (value: T) => void] => {
-  const [queryParams, setQueryParams] = useQueryParams({
-    isShallow: options?.isShallow ?? defaultRoutingOptions.isShallow,
-  });
+  options: UseQueryParamsOptions = defaultOptions()
+): [Nullable<T>, (value: unknown) => void] {
+  const [queryParams, setQueryParams] = useQueryParams(options);
 
-  const setQueryParam = (value: T) => {
+  const setQueryParam = (value: unknown) => {
     setQueryParams({ ...queryParams, [key]: value });
   };
 
-  return [
-    formatValue
-      ? formatValue(queryParams[key] as string)
-      : (queryParams[key] as unknown as T),
-    setQueryParam,
-  ];
-};
+  return [queryParams[key] as unknown as Nullable<T>, setQueryParam];
+}
 
 export default useQueryParam;

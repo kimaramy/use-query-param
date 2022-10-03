@@ -1,35 +1,33 @@
 import { useState, useEffect } from 'react';
-import { isNullable } from './utils';
+import { isNullable, defaultOptions } from './utils';
+import type { UseQueryParamsOptions, Nullable } from './utils';
 
-const useQueryString = (
-  isShallow = false
-): [string, (queryString: string, historyState?: unknown) => void] => {
+function useQueryString(
+  options: UseQueryParamsOptions = defaultOptions()
+): [string, (queryString: Nullable<string>, historyState?: unknown) => void] {
   if (!window) throw new ReferenceError(`'window' is undefined.`);
 
-  const [queryString, _setQueryString] = useState(
-    window.location.search.slice(1)
-  );
+  const [queryString, _setQueryString] = useState(window.location.search);
 
   const setQueryString = (
-    queryString: string,
+    queryString: Nullable<string>,
     historyState: unknown = null
   ) => {
-    const isStackable = !isNullable(historyState) && !isShallow;
+    const isStatic = isNullable(historyState) || options.isShallow;
     /**
      * @see https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
      * @see https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState
      */
-    window.history[isStackable ? 'pushState' : 'replaceState'](
+    window.history[isStatic ? 'replaceState' : 'pushState'](
       historyState,
       '',
-      `${window.location.pathname}${
-        queryString.length > 0 ? `?${queryString}` : queryString
-      }`
+      `${window.location.pathname}${isNullable(queryString) ? '' : queryString}`
     );
+    window.dispatchEvent(new Event('popstate'));
   };
 
   const listenToPopstate = () => {
-    _setQueryString(window.location.search.slice(1));
+    _setQueryString(window.location.search);
   };
 
   useEffect(() => {
@@ -40,6 +38,6 @@ const useQueryString = (
   }, []);
 
   return [queryString, setQueryString];
-};
+}
 
 export default useQueryString;
