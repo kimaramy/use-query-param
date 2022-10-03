@@ -10,7 +10,7 @@ When creating apps with easily shareable URLs, you often want to encode state as
 
 <!-- Complements ReactRouter -->
 
-If you are doing a React-based project, you will probably be using `ReactRouter` together with a high probability. However, the part where `ReactRouter` uses query string as a state, i.e., `useSearchParams`, returns instance of `URLSearchParams`, so you may need to parse it again. Therefore, this library can help you when you're trying to use query params with `ReactRouter`, another `History` API-based router library either.
+If you are doing a React-based project, you will probably be using `ReactRouter` or `NextRouter` together. However, the part where these routers use query string as a state, i.e., `useSearchParams`, returns instance of `URLSearchParams`, so you may need to parse it again. Therefore, this library can help you when you're trying to use query params with `ReactRouter` or `NextRouter`, and the other `History` API-based router libraries.
 
 ## Features
 
@@ -25,7 +25,7 @@ If you are doing a React-based project, you will probably be using `ReactRouter`
   - Shallow routing - Able to update query parameter with no history changes
   - Hard/Soft key-value deletion (Upcoming)
 
-- No wrapping `Provider` required
+- No adapter required
 - Typescript support
 - Light-weight (5KB)
 - No dependencies.
@@ -43,28 +43,28 @@ If you are doing a React-based project, you will probably be using `ReactRouter`
   <br />
 
 ```ts
-declare function useQueryParams<ParamKeyEnumOrUnion extends string>(options?: {
+declare function useQueryParams<KeyEnum extends string>(options?: {
   isShallow?: boolean;
 }): [
-  { [key in ParamKeyEnumOrUnion]?: string | undefined },
-  (queryParams: { [key in ParamKeyEnumOrUnion]?: unknown }) => void
+  { [key in KeyEnum]?: string | undefined },
+  (queryParams: { [key in KeyEnum]?: unknown }) => void
 ];
 ```
 
 </details>
 
-#### Example
+#### Basic example
 
-```jsx
+```tsx
 import { FC } from 'react';
 import { useQueryParams } from '@kimaramyz/use-query-params';
 
-const UseQueryParamsExample: FC = () => {
+const BasicExample: FC = () => {
   const [queryParams, setQueryParams] = useQueryParams<'page' | 'q'>();
 
   return (
     <div>
-      <h1>queryParams is {JSON.stringify(queryParams, null, 2)}</h1>
+      <h1>queryParams: {JSON.stringify(queryParams, null, 2)}</h1>
       <button onClick={() => setQueryParams({ ...queryParams, page: 2 })}>
         Upsert pageParam
       </button>
@@ -73,15 +73,42 @@ const UseQueryParamsExample: FC = () => {
       >
         Delete pageParam
       </button>
-      <button onClick={() => setQueryParams({})}>Clear</button>
+      <button onClick={() => setQueryParams(null)}>Clear</button>
     </div>
   );
 };
-
-export default UseQueryParamsExample;
 ```
 
-<!-- BREAK -->
+#### Using shallow routing
+
+```tsx
+import { FC } from 'react';
+import { useQueryParams } from '@kimaramyz/use-query-params';
+
+const ShallowRoutingExample: FC = () => {
+  const [queryParams, setQueryParams] = useQueryParams<'page' | 'q'>({
+    isShallow: true,
+  });
+
+  return (
+    <div>
+      <h1>queryParams: {JSON.stringify(queryParams, null, 2)}</h1>
+      <h2>history.length: {window.history.length}</h2>
+      <button onClick={() => setQueryParams({ ...queryParams, page: 2 })}>
+        Upsert pageParam
+      </button>
+      <button
+        onClick={() => setQueryParams({ ...queryParams, page: undefined })}
+      >
+        Delete pageParam
+      </button>
+      <button onClick={() => setQueryParams(null)}>Clear</button>
+    </div>
+  );
+};
+```
+
+<br />
 
 ### useQueryParam
 
@@ -92,41 +119,53 @@ export default UseQueryParamsExample;
 ```ts
 declare function useQueryParam<T = string>(
   key: string,
-  formatValue?: ((value: string) => T) | undefined,
-  options?:
-    | {
-        isShallow?: boolean | undefined;
-      }
-    | undefined
-): [T, (value: T) => void];
+  options?: {
+    isShallow?: boolean;
+  }
+): [T | null | undefined, (value: unknown) => void];
 ```
 
 </details>
 
-#### Example
+#### Basic example
 
-```jsx
+```tsx
 import { FC } from 'react';
 import { useQueryParam } from '@kimaramyz/use-query-params';
 
-const UseQueryParamExample: FC = () => {
-  const [pageParam, setPageParam] = useQueryParam('page', (value) =>
-    Number(value)
-  );
+const BasicExample: FC = () => {
+  const [page, setPage] = useQueryParam('page');
 
   return (
     <div>
-      <h1>pageParam is {pageParam}</h1>
-      <button onClick={() => setPageParam(1)}>Upsert</button>
-      <button onClick={() => setPageParam(undefined)}>Clear</button>
+      <h1>page: {page}</h1>
+      <button onClick={() => setPage(1)}>Upsert</button>
+      <button onClick={() => setPage(undefined)}>Clear</button>
+    </div>
+};
+```
+
+#### Using shallow routing
+
+```tsx
+import { FC } from 'react';
+import { useQueryParam } from '@kimaramyz/use-query-params';
+
+const ShallowRoutingExample: FC = () => {
+  const [page, setPage] = useQueryParam('page', { isShallow: true });
+
+  return (
+    <div>
+      <h1>page: {page}</h1>
+      <h2>history.length: {window.history.length}</h2>
+      <button onClick={() => setPage(1)}>Upsert</button>
+      <button onClick={() => setPage(undefined)}>Clear</button>
     </div>
   );
 };
-
-export default UseQueryParamExample;
 ```
 
-<!-- BREAK -->
+<br />
 
 ### useQueryString
 
@@ -135,30 +174,51 @@ export default UseQueryParamExample;
   <br />
 
 ```ts
-declare function useQueryString(
-  isShallow?: boolean
-): [string, (queryString: string, historyState?: unknown) => void];
+declare function useQueryString(options?: {
+  isShallow?: boolean;
+}): [
+  string,
+  (queryString: string | null | undefined, historyState?: unknown) => void
+];
 ```
 
 </details>
 
-#### Example
+#### Basic example
 
-```jsx
+```tsx
 import { FC } from 'react';
 import { useQueryString } from '@kimaramyz/use-query-params';
 
-const UseQueryStringExample: FC = () => {
+const BasicExample: FC = () => {
   const [queryString, setQueryString] = useQueryString();
 
   return (
     <div>
-      <h1>queryString is {queryString}</h1>
+      <h1>queryString: {queryString}</h1>
       <button onClick={() => setQueryString('?page=1&q=foo')}>Upsert</button>
-      <button onClick={() => setQueryString('')}>Clear</button>
+      <button onClick={() => setQueryString(undefined)}>Clear</button>
     </div>
   );
 };
+```
 
-export default UseQueryStringExample;
+#### Using shallow routing
+
+```tsx
+import { FC } from 'react';
+import { useQueryString } from '@kimaramyz/use-query-params';
+
+const ShallowRoutingExample: FC = () => {
+  const [queryString, setQueryString] = useQueryString({ isShallow: true });
+
+  return (
+    <div>
+      <h1>queryString: {queryString}</h1>
+      <h2>history.length: {window.history.length}</h2>
+      <button onClick={() => setQueryString('?page=1&q=foo')}>Upsert</button>
+      <button onClick={() => setQueryString(undefined)}>Clear</button>
+    </div>
+  );
+};
 ```
