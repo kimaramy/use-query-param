@@ -8,14 +8,16 @@ export default defineConfig({
   plugins: [
     react(),
     dts({
-      outputDir: 'types',
+      outputDir: './dist/types',
       insertTypesEntry: true,
     }),
   ],
-  test: {},
+  test: {
+    environment: 'jsdom',
+  },
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
+      entry: resolve(__dirname, './src/index.ts'),
       name: 'useQueryParams',
       formats: ['es', 'umd'],
       fileName: (format) => `use-query-params.${format}.js`,

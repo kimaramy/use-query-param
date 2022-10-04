@@ -290,10 +290,10 @@
     "@jridgewell/resolve-uri" "^3.0.3"
     "@jridgewell/sourcemap-codec" "^1.4.10"
 
-"@kimaramyz/use-query-params@^0.2.0":
-  version "0.2.0"
-  resolved "https://registry.yarnpkg.com/@kimaramyz/use-query-params/-/use-query-params-0.2.0.tgz#f6b9245e9d4b1ea5a0d3adbdc3a1dde76ad2fe67"
-  integrity sha512-D/POqOKevm9mfIPNYBEucdoQWOrfaD9fiE/Qk1WsUDCPSIy8G6I/TYswaikALR5yPtPvNgNxJSUfuzGpvZIfFw==
+"@kimaramyz/use-query-params@^0.3.0":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@kimaramyz/use-query-params/-/use-query-params-0.3.2.tgz#c2d7f9beea23de0100e2a7922c11e070ec860930"
+  integrity sha512-n3+FLx1QmApbrdfEPn8/+DjByppejzRQFk1EECQs5lDIxVPBlu0AD1tWdd5HQDQrBEfgCpdM1RWdStIqz0xttQ==
 
 "@types/node@^18.7.22":
   version "18.7.22"

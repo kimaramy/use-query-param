@@ -1,14 +1,19 @@
 import React from 'react';
-import { useQueryParams, useQueryParam } from '@kimaramyz/use-query-params';
+import {
+  useQueryParams,
+  useQueryParam,
+  useQueryString,
+} from '@kimaramyz/use-query-params';
 import './App.css';
 
 const App: React.FC = () => {
   const [queryParams, setQueryParams] = useQueryParams<'a' | 'b'>({
     isShallow: true,
   });
-  const [a, setA] = useQueryParam('a', (value) => Number(value), {
+  const [a, setA] = useQueryParam('a', {
     isShallow: false,
   });
+  const [qs, setQS] = useQueryString();
 
   console.log('app mounted');
   console.log('queryParams', queryParams);
@@ -16,18 +21,20 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <dl>
-        <dt>query params</dt>
+        <dt>QueryParams</dt>
         <dd>
           <code>{JSON.stringify(queryParams)}</code>
         </dd>
-        <dt>query param a</dt>
+        <dt>QueryParam A</dt>
         <dd>
           <code>{JSON.stringify({ a })}</code>
         </dd>
+        <dt>QueryString</dt>
+        <dd>
+          <code>{qs}</code>
+        </dd>
         <dt>history.length</dt>
         <dd>{window.history.length}</dd>
-        <dt>location.pathname</dt>
-        <dd>{window.location.pathname}</dd>
       </dl>
 
       <button
@@ -76,6 +83,22 @@ const App: React.FC = () => {
         }}
       >
         upsert a
+      </button>
+
+      <button
+        onClick={() => {
+          setQS('?a=4&b=4');
+        }}
+      >
+        set qs
+      </button>
+
+      <button
+        onClick={() => {
+          setQS(null);
+        }}
+      >
+        clear qs
       </button>
     </div>
   );

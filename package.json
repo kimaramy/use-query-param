@@ -4,6 +4,12 @@
   "workspaces": [
     "packages/*"
   ],
+  "scripts": {
+    "build:uqp": "lerna run build --scope @kimaramyz/use-query-params",
+    "test:uqp": "lerna run test --scope @kimaramyz/use-query-params",
+    "publish:uqp": "lerna run publish --scope @kimaramyz/use-query-params",
+    "clean:uqp": "lerna run clean --scope @kimaramyz/use-query-params"
+  },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.38.0",
     "@typescript-eslint/parser": "^5.38.0",
