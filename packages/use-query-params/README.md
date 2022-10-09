@@ -1,6 +1,6 @@
 # @kimaramyz/use-query-params
 
-`@kimaramyz/use-query-params` is a library of React hooks for using URL query params as state. Light-weight, TS support and no dependencies. This allows you to easily encode and decode data of primitive type. Implemented by `History` API and `URLSearchParams` API.
+`@kimaramyz/use-query-params` is a library of React hooks for using URL query params as state. Light-weight, TS support and no dependencies. This allows you to easily synchronize(encode and decode) react state with URL query parameters. Implemented by `History` API and `URLSearchParams` API.
 
 ## Background
 
@@ -14,7 +14,7 @@ If you are doing a React-based project, you will probably be using `ReactRouter`
 
 ## Features
 
-- Provides three options of URL query hooks
+- Provides three options for using query params.
 
   - [useQueryParams](#useQueryParams)
   - [useQueryParam](#useQueryParam)
