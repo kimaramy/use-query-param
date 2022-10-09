@@ -1,7 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import useQueryString from './useQueryString';
-import { defaultOptions, isNullable } from './utils';
-import type { UseQueryParamsOptions, NullTypes, Nullable } from './utils';
+import { defaultOptions, isNullType } from './utils';
+import type { UseQueryParamsOptions, NullType, Nullable } from './utils';
 
 function useQueryParams<KeyEnum extends string>(
   options: UseQueryParamsOptions = defaultOptions()
@@ -34,8 +34,8 @@ function useQueryParams<KeyEnum extends string>(
 
   const setQueryParams = useCallback(
     (queryParams: Nullable<{ [key in KeyEnum]?: unknown }>) => {
-      if (isNullable(queryParams)) {
-        setQueryString(queryParams as NullTypes, null);
+      if (isNullType(queryParams)) {
+        setQueryString(queryParams as NullType, null);
       } else {
         const sanitizedQueryParams = JSON.parse(JSON.stringify(queryParams));
         const hasAnyQueryParam = Object.keys(sanitizedQueryParams).length > 0;

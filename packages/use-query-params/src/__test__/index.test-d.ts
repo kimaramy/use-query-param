@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { expectType } from 'tsd';
-import { isNullable } from '../index';
+import { isNullType } from '../index';
 
-expectType<boolean>(isNullable(null));
-expectType<boolean>(isNullable(undefined));
+expectType<boolean>(isNullType(null));
+expectType<boolean>(isNullType(undefined));

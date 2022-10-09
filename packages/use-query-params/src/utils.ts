@@ -1,8 +1,8 @@
-export type NullTypes = null | undefined;
+export type NullType = null | undefined;
 
-export type Nullable<T> = T | NullTypes;
+export type Nullable<T> = T | NullType;
 
-export const isNullable = (value: unknown) =>
+export const isNullType = (value: unknown) =>
   value === undefined || value === null;
 
 export interface UseQueryParamsOptions {

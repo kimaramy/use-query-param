@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { isNullable, defaultOptions } from './utils';
+import { isNullType, defaultOptions } from './utils';
 import type { UseQueryParamsOptions, Nullable } from './utils';
 
 function useQueryString(
@@ -13,7 +13,7 @@ function useQueryString(
     queryString: Nullable<string>,
     historyState: unknown = null
   ) => {
-    const isStatic = isNullable(historyState) || options.isShallow;
+    const isStatic = isNullType(historyState) || options.isShallow;
     /**
      * @see https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
      * @see https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState
@@ -21,7 +21,7 @@ function useQueryString(
     window.history[isStatic ? 'replaceState' : 'pushState'](
       historyState,
       '',
-      `${window.location.pathname}${isNullable(queryString) ? '' : queryString}`
+      `${window.location.pathname}${isNullType(queryString) ? '' : queryString}`
     );
     window.dispatchEvent(new Event('popstate'));
   };
