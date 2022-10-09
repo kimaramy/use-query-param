@@ -104,3 +104,6 @@ typings/
 
 # OS file system files
 .DS_Store
+
+# common build output
+dist
