@@ -1,11 +1,13 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useDebugValue } from 'react';
 import { isNullType, defaultOptions } from './utils';
 import type { UseQueryParamsOptions, Nullable } from './utils';
 
-function useQueryString(
+export default function useQueryString(
   options: UseQueryParamsOptions = defaultOptions()
 ): [string, (queryString: Nullable<string>, historyState?: unknown) => void] {
-  if (!window) throw new ReferenceError(`'window' is undefined.`);
+  if (!window) {
+    throw new ReferenceError(`'window' is undefined.`);
+  }
 
   const [queryString, _setQueryString] = useState(window.location.search);
 
@@ -13,12 +15,11 @@ function useQueryString(
     queryString: Nullable<string>,
     historyState: unknown = null
   ) => {
-    const isStatic = isNullType(historyState) || options.isShallow;
     /**
      * @see https://developer.mozilla.org/en-US/docs/Web/API/History/pushState
      * @see https://developer.mozilla.org/en-US/docs/Web/API/History/replaceState
      */
-    window.history[isStatic ? 'replaceState' : 'pushState'](
+    window.history[options.isShallow ? 'replaceState' : 'pushState'](
       historyState,
       '',
       `${window.location.pathname}${isNullType(queryString) ? '' : queryString}`
@@ -26,7 +27,8 @@ function useQueryString(
     window.dispatchEvent(new Event('popstate'));
   };
 
-  const listenToPopstate = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const listenToPopstate = (_event: PopStateEvent) => {
     _setQueryString(window.location.search);
   };
 
@@ -35,9 +37,9 @@ function useQueryString(
     return () => {
       window.removeEventListener('popstate', listenToPopstate);
     };
-  }, []);
+  }, [queryString]);
+
+  useDebugValue(queryString ?? undefined);
 
   return [queryString, setQueryString];
 }
-
-export default useQueryString;

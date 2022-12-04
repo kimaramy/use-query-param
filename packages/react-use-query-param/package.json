@@ -1,6 +1,6 @@
 {
-  "name": "@kimaramyz/use-query-params",
-  "description": "React hooks for using URL query params as state. No dependencies.",
+  "name": "react-use-query-param",
+  "description": "React hooks for using URL query parameter as state.",
   "private": false,
   "license": "MIT",
   "author": {
@@ -8,29 +8,34 @@
     "email": "fed.haram@gmail.com",
     "url": "https://github.com/kimaramy"
   },
-  "version": "0.3.3",
+  "version": "1.0.0",
   "keywords": [
     "react",
     "hooks",
-    "query-params",
+    "url",
+    "parse",
     "query-string",
-    "query-parameter"
+    "query-param",
+    "query-params",
+    "query-parameter",
+    "search-param",
+    "search-params"
   ],
   "repository": {
-    "url": "https://github.com/kimaramy/use-query-params.git",
+    "url": "https://github.com/kimaramy/use-query-param.git",
     "type": "git"
   },
   "bugs": {
-    "url": "https://github.com/kimaramy/use-query-params/issues"
+    "url": "https://github.com/kimaramy/use-query-param/issues"
   },
   "type": "module",
-  "module": "./dist/use-query-params.es.js",
-  "main": "./dist/use-query-params.umd.js",
+  "module": "./dist/react-use-query-param.es.js",
+  "main": "./dist/react-use-query-param.umd.js",
   "types": "./dist/index.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/use-query-params.es.js",
-      "require": "./dist/use-query-params.umd.js"
+      "import": "./dist/react-use-query-param.es.js",
+      "require": "./dist/react-use-query-param.umd.js"
     }
   },
   "files": [

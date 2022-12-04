@@ -5,9 +5,10 @@
     "packages/*"
   ],
   "scripts": {
-    "build:uqp": "lerna run build --scope @kimaramyz/use-query-params",
-    "test:uqp": "lerna run test --scope @kimaramyz/use-query-params",
-    "clean:uqp": "lerna run clean --scope @kimaramyz/use-query-params"
+    "build:react": "lerna run build --scope react-use-query-param",
+    "test:react": "lerna run test --scope react-use-query-param",
+    "clean:react": "lerna run clean --scope react-use-query-param",
+    "dev:react-example": "lerna run dev --scope react-example"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.38.0",

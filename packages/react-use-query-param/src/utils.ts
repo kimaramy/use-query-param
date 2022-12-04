@@ -7,10 +7,8 @@ export const isNullType = (value: unknown) =>
 
 export interface UseQueryParamsOptions {
   isShallow?: boolean;
-  // isSynced?: boolean;
 }
 
 export const defaultOptions = (): UseQueryParamsOptions => ({
   isShallow: false,
-  // isSynced: true,
 });

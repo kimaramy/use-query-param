@@ -18,9 +18,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, './src/index.ts'),
-      name: 'useQueryParams',
+      name: 'react-use-query-param',
       formats: ['es', 'umd'],
-      fileName: (format) => `use-query-params.${format}.js`,
+      fileName: (format) => `react-use-query-param.${format}.js`,
     },
     rollupOptions: {
       external: ['react', 'react-dom'],
