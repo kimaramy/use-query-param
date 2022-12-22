@@ -1,6 +1,11 @@
 {
   "name": "root",
   "private": true,
+  "engines": {
+    "node": ">=18",
+    "npm": "please-use-yarn",
+    "yarn": "^1.0.0"
+  },
   "workspaces": [
     "packages/*",
     "examples/*"
